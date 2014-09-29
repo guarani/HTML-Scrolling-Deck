@@ -16,32 +16,39 @@
                 width: 100%;
                 margin: 0;
                 padding: 0;
-            }
-            #content-container {
-                display: table;
-                width: 100%;
-                height: 100%;
                 background-image: url(background-scaled.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
             }
-            #content-wrapper {
-                vertical-align: middle;
-                display: table-cell;
-                width: 100%;
-                height: 100%;
-            }   
-            #content-area {
-                text-align: center;
-            }
-            #content-inner-area {
+            #content {
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                bottom: 0px;
+                left: 0px;
+                margin: auto;
+                width: 600px;
+                height: 150px;
                 font-family: RosarioRegular;
                 color: rgba(0, 0, 0, 0.6);
                 background-color: rgba(266, 255, 255, 0.3);
-                display: inline-block;
                 padding: 30px;
                 border-radius: 5px;
+                -webkit-animation: 3s content-drop-down;
             }
+            @-webkit-keyframes content-drop-down {
+                from {
+                    top: -200%;
+                    opacity: 0;
+                }
+                50% {
+                    opacity: 0.25;
+                }
+                to {
+                    top: 0px;
+                    opacity: 1.0;
+                }
+            }  
             #title {
                 font-size: 3rem;
                 text-align: center;
@@ -100,23 +107,17 @@
         </script>
 	</head>
 	<body>
-        <div id="content-container">
-            <div id="content-wrapper">
-                <div id="content-area">
-                    <div id="content-inner-area">
-                        <div id="title">Hi, I'm Paul Von Schrottky.</div>
-                        <div id="description">
-                            <div id="description-area">iOS apps and websites</div>
-                        </div>
-                        <div id="icon-tray">
-                            <div id="github-icon" class="social-icon"></div>
-                            <div id="stackoverflow-icon" class="social-icon"></div>
-                            <div id="linkedin-icon" class="social-icon"></div>
-                            <div id="twitter-icon" class="social-icon"></div>
-                            <div id="quora-icon" class="social-icon"></div>
-                        </div>
-                    </div>
-                </div>
+        <div id="content">
+            <div id="title">Hi, I'm Paul Von Schrottky</div>
+            <div id="description">
+                <div id="description-area">iOS apps and websites</div>
+            </div>
+            <div id="icon-tray">
+                <div id="github-icon" class="social-icon"></div>
+                <div id="stackoverflow-icon" class="social-icon"></div>
+                <div id="linkedin-icon" class="social-icon"></div>
+                <div id="twitter-icon" class="social-icon"></div>
+                <div id="quora-icon" class="social-icon"></div>
             </div>
         </div>
 	</body>
