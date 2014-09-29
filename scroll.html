@@ -13,7 +13,7 @@
                 right: 0px;
                 bottom: 0px;
                 left: 0px;
-                background: rgba(0, 0, 0, 0.1);
+                background: rgba(200, 0, 0, 0.1);
             }
             .page {
                 position: absolute;
@@ -22,6 +22,7 @@
             }
             #page-1 { background: red; }
             #page-2 { background: green; } 
+            #page-3 { background: blue; } 
         </style>
         <script>
             $(function() {
@@ -34,13 +35,24 @@
                 $('#cover').on('mousewheel', function(event) {
                     console.log(event.deltaX, event.deltaY, event.deltaFactor);
 
-                    // Get the next page to be displayed and it's current y position.
+                    // Get the next page to be displayed and its current y position.
                     var nextPage = $('.page.current').next(); 
-                    var nextPageCurrentYOffset = $(nextPage).offset().top;
+                    var nextPageY = $(nextPage).offset().top;
+
+                    // If the new position would be off the screen, snap the page to the top of the screen.
+                    // Also, mark the next page as the current page.
+                    var newNextPageY = nextPageY + event.deltaY * event.deltaFactor;
+                    if (newNextPageY < 0) {
+                        newNextPageY = 0;
+                        if ($(nextPage).is(':last-of-type') == false) {
+                            $(nextPage).prev().removeClass('current');
+                            $(nextPage).addClass('current');
+                        }
+                    }
 
                     // Scroll the next page up by the user's scrolling distance.
                     $(nextPage).offset({
-                        top: nextPageCurrentYOffset += event.deltaY * event.deltaFactor,
+                        top: newNextPageY, 
                         left: 0,
                     });
                 });
@@ -51,6 +63,7 @@
 	<body>
         <div id="page-1" class="page current">Page 1</div>
         <div id="page-2" class="page">Page 2</div>
+        <div id="page-3" class="page">Page 3</div>
         <div id="cover"></div>
     </body>
 </html>
