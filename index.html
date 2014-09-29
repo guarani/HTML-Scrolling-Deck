@@ -16,9 +16,21 @@
                 width: 100%;
                 margin: 0;
                 padding: 0;
-                background-image: url(background-scaled.png);
-                background-repeat: no-repeat;
-                background-size: 100%;
+            }
+            #screen-background {
+                height: 100%;   
+                width: 100%;
+                opacity: 0;
+            }
+            #spinner {
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                display: inline-block;
+                margin: 0 auto;
+                top: 100px;
+                left: 0px;
+                right: 0px;
             }
             #content {
                 position: absolute;
@@ -88,6 +100,16 @@
         </style>
         <script>
             $(function() {
+                console.log('Document ready');
+                $('#screen-background').on('load', function() {
+                    // Hide the activity indicator.
+                    $('#spinner').css('display', 'none');
+
+                    // Show the content box.
+                    $(this).animate({opacity: '1.0'}, 2000);
+                    console.log('Image loaded');
+                }).attr('src', 'background-scaled.png');
+
                 $('#github-icon').on('click', function() {
                     window.location = 'https://github.com/guarani'; 
                 });
@@ -107,6 +129,8 @@
         </script>
 	</head>
 	<body>
+        <img id="spinner" src="spinner.gif">
+        <img id="screen-background">
         <div id="content">
             <div id="title">Hi, I'm Paul Von Schrottky</div>
             <div id="description">
