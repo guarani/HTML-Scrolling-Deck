@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<script src="jquery-2.0.3.js"></script>
+		<script src="jquery.mousewheel.min.js"></script>
         <style>
             body { 
                 margin: 0;
@@ -13,7 +14,6 @@
                 bottom: 0px;
                 left: 0px;
                 background: rgba(0, 0, 0, 0.1);
-                pointer-events: none;
             }
             .page {
                 position: absolute;
@@ -29,6 +29,22 @@
                 $('.page:not(.current)').each(function (index, page) {
                     $(page).offset({top: window.innerHeight, left: 0});
                 });
+
+                // The cover is an area covering the entire screen (viewport) which captures mouse scrolling.
+                $('#cover').on('mousewheel', function(event) {
+                    console.log(event.deltaX, event.deltaY, event.deltaFactor);
+
+                    // Get the next page to be displayed and it's current y position.
+                    var nextPage = $('.page.current').next(); 
+                    var nextPageCurrentYOffset = $(nextPage).offset().top;
+
+                    // Scroll the next page up by the user's scrolling distance.
+                    $(nextPage).offset({
+                        top: nextPageCurrentYOffset += event.deltaY * event.deltaFactor,
+                        left: 0,
+                    });
+                });
+
             });
         </script>
 	</head>
