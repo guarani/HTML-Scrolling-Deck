@@ -2,15 +2,11 @@
 	<head>
 		<script src="jquery-2.0.3.js"></script>
 		<script src="jquery.mousewheel.min.js"></script>
+		<script src="scroll-deck.js"></script>
+
         <style>
             body { 
                 margin: 0;
-                overflow: hidden; /* Hide scrollbars caused by offscreen pages. */    
-            }
-            .page {
-                position: absolute;
-                width: 100%;
-                height: 100%;
             }
             #page-1 { background: red; }
             #page-2 { background: green; } 
@@ -18,50 +14,8 @@
         </style>
         <script>
             $(function() {
-                // Mark the first page as the current page (i.e. the page that is filling up the entire screen).
-                $('.page:first').addClass('current');
-
-                // Hide beneath the bottom of the screen all pages except for the first.
-                $('.page:not(.current)').each(function (index, page) {
-                    $(page).offset({top: window.innerHeight, left: 0});
-                });
-
-                // Add a scroll listener to the pages so we know when the user scroll and so
-                // we can slide the pages up (or down).
-                $('.page').on('mousewheel', function(event) {
-                    console.log(event.deltaX, event.deltaY, event.deltaFactor);
-
-                    // Get the next page to be displayed and its current y position.
-                    var nextPage = $('.page.current').next(); 
-                    var nextPageY = $(nextPage).offset().top;
-
-                    // If the new position would be off the top of the screen, snap the page to the top of the screen.
-                    var newNextPageY = nextPageY + event.deltaY * event.deltaFactor;
-                    if (newNextPageY < 0) {
-                        newNextPageY = 0;
-
-                        // Also, mark the next page as the current page.
-                        if ($(nextPage).is(':last-of-type') == false) {
-                            $(nextPage).prev().removeClass('current');
-                            $(nextPage).addClass('current');
-                        }
-                    } else if (newNextPageY > window.innerHeight) {
-                        newNextPageY = window.innerHeight;
-
-                        // Also, mark the previous page as the current page.
-                        if ($(nextPage).prev().is(':first-of-type') == false) {
-                            $(nextPage).prev().removeClass('current');
-                            $(nextPage).prev().prev().addClass('current');
-                        }
-                    }
-
-                    // Scroll the next page up by the user's scrolling distance.
-                    $(nextPage).offset({
-                        top: newNextPageY, 
-                        left: 0,
-                    });
-                });
-
+                // Initialize the scroll deck.
+                initScrollDeck();
             });
         </script>
 	</head>

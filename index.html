@@ -1,6 +1,8 @@
 <html>
 	<head>
 		<script src="jquery-2.0.3.js"></script>
+        <script src="jquery.mousewheel.min.js"></script>
+        <script src="scroll-deck.js"></script> 
 		<!--<link rel="stylesheet" type="text/css" href="css/index.css"></link>-->
         <style>
             @font-face {
@@ -11,16 +13,8 @@
                 font-family: RosarioRegular;
                 src: url(Rosario-Regular.ttf);
             }
-            html, body {
-                height: 100%;   
-                width: 100%;
+            body {
                 margin: 0;
-                padding: 0;
-            }
-            #screen-background {
-                height: 100%;   
-                width: 100%;
-                opacity: 0;
             }
             #spinner {
                 position: absolute;
@@ -32,7 +26,12 @@
                 left: 0px;
                 right: 0px;
             }
-            #content {
+            .background {
+                height: 100%;   
+                width: 100%;
+                opacity: 0;
+            }
+            #page-1 .content {
                 position: absolute;
                 top: 0px;
                 right: 0px;
@@ -46,9 +45,9 @@
                 background-color: rgba(266, 255, 255, 0.3);
                 padding: 30px;
                 border-radius: 5px;
-                -webkit-animation: 3s content-drop-down;
+                -webkit-animation: 3s page-1-content-drop-down;
             }
-            @-webkit-keyframes content-drop-down {
+            @-webkit-keyframes page-1-content-drop-down {
                 from {
                     top: -200%;
                     opacity: 0;
@@ -61,16 +60,16 @@
                     opacity: 1.0;
                 }
             }  
-            #title {
+            #page-1 .content .title {
                 font-size: 3rem;
                 text-align: center;
             }
-            #description {
+            #page-1 .content .description {
                 text-align: center;
                 font-size: 2rem;
             }
-            #icon-tray {
-                width: 220px; /* Calculation (5 * 32) + (6 * 10) = 220 */
+            #page-1 .content .icon-tray {
+                width: 220px;
                 height: 32px;
                 margin: 0 auto;
                 margin-top: 10px;
@@ -97,11 +96,22 @@
             #quora-icon {
                 background-image: url(quora.png);   
             }
+            #page-2 {
+                background: red;
+            }
+            #page-3 {
+                background: orange;
+            }
+            #page-4 {
+                background: yellow;
+            }
         </style>
         <script>
             $(function() {
-                console.log('Document ready');
-                $('#screen-background').on('load', function() {
+                // Initialize the scrol deck of pages.
+                initScrollDeck();
+
+                $('#page-1 .background').on('load', function() {
                     // Hide the activity indicator.
                     $('#spinner').css('display', 'none');
 
@@ -130,19 +140,24 @@
 	</head>
 	<body>
         <img id="spinner" src="spinner.gif">
-        <img id="screen-background">
-        <div id="content">
-            <div id="title">Hi, I'm Paul Von Schrottky</div>
-            <div id="description">
-                <div id="description-area">iOS apps and websites</div>
-            </div>
-            <div id="icon-tray">
-                <div id="github-icon" class="social-icon"></div>
-                <div id="stackoverflow-icon" class="social-icon"></div>
-                <div id="linkedin-icon" class="social-icon"></div>
-                <div id="twitter-icon" class="social-icon"></div>
-                <div id="quora-icon" class="social-icon"></div>
+        <div id="page-1" class="page">
+            <img class="background">
+            <div class="content">
+                <div class="title">Hi, I'm Paul Von Schrottky</div>
+                <div class="description">
+                    <div class="description-area">iOS apps and websites</div>
+                </div>
+                <div class="icon-tray">
+                    <div id="github-icon" class="social-icon"></div>
+                    <div id="stackoverflow-icon" class="social-icon"></div>
+                    <div id="linkedin-icon" class="social-icon"></div>
+                    <div id="twitter-icon" class="social-icon"></div>
+                    <div id="quora-icon" class="social-icon"></div>
+                </div>
             </div>
         </div>
+        <div id="page-2" class="page"></div>
+        <div id="page-3" class="page"></div>
+        <div id="page-4" class="page"></div>
 	</body>
 </html>
