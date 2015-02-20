@@ -111,14 +111,15 @@
                 // Initialize the scrol deck of pages.
                 initScrollDeck();
 
-                $('#page-1 .background').on('load', function() {
-                    // Hide the activity indicator.
+                
+                //$('#page-1 .background').on('load', function() {
+                //    // Hide the activity indicator.
                     $('#spinner').css('display', 'none');
 
                     // Show the content box.
                     $(this).animate({opacity: '1.0'}, 2000);
-                    console.log('Image loaded');
-                }).attr('src', 'background-scaled.png');
+                //    console.log('Image loaded');
+                //}).attr('src', 'background-scaled.png');
 
                 $('#github-icon').on('click', function() {
                     window.location = 'https://github.com/guarani'; 
